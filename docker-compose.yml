@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    container_name: dayo-light-controller
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    ports:
+      - "${CONTROLLER_BIND_IP:-100.126.197.74}:${WEB_PORT:-5000}:5000"
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    command: python main.py
+    restart: always
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
